@@ -2,7 +2,7 @@ import React from 'react';
 import { View, ScrollView, StyleSheet, Dimensions } from 'react-native';
 import { Text, Card, DataTable, Button } from 'react-native-paper';
 import { LineChart } from 'react-native-chart-kit';
-import Sidebar from '../components/Sidebar'; // Adjust the path based on your file structure
+//import Sidebar from '../components/Sidebar'; // Adjust the path based on your file structure
 
 function HomeScreen({ navigation }) {
   return (
