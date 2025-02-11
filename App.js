@@ -6,8 +6,9 @@ import LandingScreen from './screens/LandingScreen';
 import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import TransactionScreen from './screens/TransactionScreen';
-import SignUpScreen from './screens/SignUpScreen';  // Import SignUp Screen
-import ForgotPasswordScreen from './screens/ForgotPasswordScreen';  // Import Forgot Password Screen
+import SignUpScreen from './screens/SignUpScreen';  
+import ForgotPasswordScreen from './screens/ForgotPasswordScreen';  
+import Sidebar from './components/Sidebar';
 
 const Stack = createStackNavigator();
 
@@ -29,6 +30,7 @@ export default function App() {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Transactions" component={TransactionScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />  
+          <Stack.Screen name="Sidebar" component={Sidebar} />  
           <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />  
         </Stack.Navigator>
       </NavigationContainer>
