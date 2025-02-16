@@ -19,7 +19,7 @@ const UsersScreen = () => {
       <Button
         title="Increment"
         onPress={incrementCount}
-        color={theme.colors.primary} // Use theme-based primary color
+        color={theme.colors.primary} 
       />
     </View>
   );
