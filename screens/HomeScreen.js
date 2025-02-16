@@ -6,7 +6,7 @@ import Layout from '../components/Layout'; // Import the Layout component
 import { ThemeContext } from '../context/ThemeContext'; // Import the ThemeContext
 
 function HomeScreen({ navigation }) {
-  const { theme } = useContext(ThemeContext); // Access the current theme
+  const { theme } = useContext(ThemeContext); 
 
   return (
     <Layout navigation={navigation}>
