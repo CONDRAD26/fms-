@@ -1,4 +1,3 @@
-// screens/ForgotPasswordScreen.js
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { TextInput, Button, Title } from 'react-native-paper';
