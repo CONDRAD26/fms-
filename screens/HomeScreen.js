@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { View, ScrollView, StyleSheet, Dimensions } from 'react-native';
 import { Text, Card, DataTable, Button } from 'react-native-paper';
 import { LineChart } from 'react-native-chart-kit';
-import Layout from '../components/Layout'; // Import the Layout component
-import { ThemeContext } from '../context/ThemeContext'; // Import the ThemeContext
+import Layout from '../components/Layout'; 
+import { ThemeContext } from '../context/ThemeContext'; 
 
 function HomeScreen({ navigation }) {
   const { theme } = useContext(ThemeContext); 
@@ -150,7 +150,7 @@ function HomeScreen({ navigation }) {
           mode="contained"
           onPress={() => navigation.navigate('Transactions')}
           style={styles.button}
-          color={theme.colors.primary} // Use theme-based primary color
+          color={theme.colors.primary} 
         >
           View Transactions
         </Button>
