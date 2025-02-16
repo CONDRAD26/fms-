@@ -1,51 +1,51 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, ScrollView, StyleSheet, Dimensions } from 'react-native';
 import { Text, Card, DataTable, Button } from 'react-native-paper';
 import { LineChart } from 'react-native-chart-kit';
-import Sidebar from '../components/Sidebar'; // Adjust the path based on your file structure
+import Layout from '../components/Layout'; // Import the Layout component
+import { ThemeContext } from '../context/ThemeContext'; // Import the ThemeContext
 
 function HomeScreen({ navigation }) {
-  return (
-    <View style={styles.mainContainer}>
-      {/* Sidebar */}
-      <Sidebar navigation={navigation} />
+  const { theme } = useContext(ThemeContext); // Access the current theme
 
+  return (
+    <Layout navigation={navigation}>
       {/* Dashboard Content */}
-      <ScrollView style={styles.container}>
+      <ScrollView style={[styles.container, { backgroundColor: theme.colors.background }]}>
         {/* Header */}
-        <Text style={styles.header}>Dashboard</Text>
+        <Text style={[styles.header, { color: theme.colors.text }]}>Dashboard</Text>
 
         {/* Widgets */}
         <View style={styles.widgetContainer}>
-          <Card style={styles.card}>
+          <Card style={[styles.card, { backgroundColor: theme.colors.card }]}>
             <Card.Content>
-              <Text style={styles.widgetTitle}>5</Text>
-              <Text>Pending Verifications</Text>
+              <Text style={[styles.widgetTitle, { color: theme.colors.text }]}>5</Text>
+              <Text style={{ color: theme.colors.text }}>Pending Verifications</Text>
             </Card.Content>
           </Card>
-          <Card style={styles.card}>
+          <Card style={[styles.card, { backgroundColor: theme.colors.card }]}>
             <Card.Content>
-              <Text style={styles.widgetTitle}>120</Text>
-              <Text>Total Transactions</Text>
+              <Text style={[styles.widgetTitle, { color: theme.colors.text }]}>120</Text>
+              <Text style={{ color: theme.colors.text }}>Total Transactions</Text>
             </Card.Content>
           </Card>
-          <Card style={styles.card}>
+          <Card style={[styles.card, { backgroundColor: theme.colors.card }]}>
             <Card.Content>
-              <Text style={styles.widgetTitle}>$15,000</Text>
-              <Text>Total Balance</Text>
+              <Text style={[styles.widgetTitle, { color: theme.colors.text }]}>$15,000</Text>
+              <Text style={{ color: theme.colors.text }}>Total Balance</Text>
             </Card.Content>
           </Card>
-          <Card style={styles.card}>
+          <Card style={[styles.card, { backgroundColor: theme.colors.card }]}>
             <Card.Content>
-              <Text style={styles.widgetTitle}>$20,000</Text>
-              <Text>Total Budget</Text>
+              <Text style={[styles.widgetTitle, { color: theme.colors.text }]}>$20,000</Text>
+              <Text style={{ color: theme.colors.text }}>Total Budget</Text>
             </Card.Content>
           </Card>
         </View>
 
         {/* Chart */}
         <View style={styles.chartContainer}>
-          <Text style={styles.chartTitle}>Expense Trends</Text>
+          <Text style={[styles.chartTitle, { color: theme.colors.text }]}>Expense Trends</Text>
           <LineChart
             data={{
               labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
@@ -54,9 +54,10 @@ function HomeScreen({ navigation }) {
             width={Dimensions.get('window').width - 50}
             height={220}
             chartConfig={{
-              backgroundGradientFrom: '#f8f8f8',
-              backgroundGradientTo: '#fff',
-              color: (opacity = 1) => `rgba(0, 122, 255, ${opacity})`,
+              backgroundGradientFrom: theme.colors.card,
+              backgroundGradientTo: theme.colors.card,
+              color: (opacity = 1) => theme.colors.primary, // Use theme-based primary color
+              labelColor: (opacity = 1) => theme.colors.text, // Use theme-based text color
             }}
             style={styles.chart}
           />
@@ -64,65 +65,101 @@ function HomeScreen({ navigation }) {
 
         {/* Transactions Table */}
         <View style={styles.tableContainer}>
-          <Text style={styles.chartTitle}>Recent Transactions</Text>
+          <Text style={[styles.chartTitle, { color: theme.colors.text }]}>Recent Transactions</Text>
           <DataTable>
             <DataTable.Header>
-              <DataTable.Title>Date</DataTable.Title>
-              <DataTable.Title>Amount</DataTable.Title>
-              <DataTable.Title>Status</DataTable.Title>
+              <DataTable.Title>
+                <Text style={{ color: theme.colors.text }}>Date</Text>
+              </DataTable.Title>
+              <DataTable.Title>
+                <Text style={{ color: theme.colors.text }}>Amount</Text>
+              </DataTable.Title>
+              <DataTable.Title>
+                <Text style={{ color: theme.colors.text }}>Status</Text>
+              </DataTable.Title>
             </DataTable.Header>
 
             <DataTable.Row>
-              <DataTable.Cell>2025-02-11</DataTable.Cell>
-              <DataTable.Cell>$200</DataTable.Cell>
-              <DataTable.Cell>Completed</DataTable.Cell>
+              <DataTable.Cell>
+                <Text style={{ color: theme.colors.text }}>2025-02-11</Text>
+              </DataTable.Cell>
+              <DataTable.Cell>
+                <Text style={{ color: theme.colors.text }}>$200</Text>
+              </DataTable.Cell>
+              <DataTable.Cell>
+                <Text style={{ color: theme.colors.text }}>Completed</Text>
+              </DataTable.Cell>
             </DataTable.Row>
             <DataTable.Row>
-              <DataTable.Cell>2025-02-10</DataTable.Cell>
-              <DataTable.Cell>$500</DataTable.Cell>
-              <DataTable.Cell>Pending</DataTable.Cell>
+              <DataTable.Cell>
+                <Text style={{ color: theme.colors.text }}>2025-02-10</Text>
+              </DataTable.Cell>
+              <DataTable.Cell>
+                <Text style={{ color: theme.colors.text }}>$500</Text>
+              </DataTable.Cell>
+              <DataTable.Cell>
+                <Text style={{ color: theme.colors.text }}>Pending</Text>
+              </DataTable.Cell>
             </DataTable.Row>
           </DataTable>
         </View>
 
         {/* Pending Users Table */}
         <View style={styles.tableContainer}>
-          <Text style={styles.chartTitle}>Pending User Verifications</Text>
+          <Text style={[styles.chartTitle, { color: theme.colors.text }]}>Pending User Verifications</Text>
           <DataTable>
             <DataTable.Header>
-              <DataTable.Title>Name</DataTable.Title>
-              <DataTable.Title>Email</DataTable.Title>
-              <DataTable.Title>Role</DataTable.Title>
+              <DataTable.Title>
+                <Text style={{ color: theme.colors.text }}>Name</Text>
+              </DataTable.Title>
+              <DataTable.Title>
+                <Text style={{ color: theme.colors.text }}>Email</Text>
+              </DataTable.Title>
+              <DataTable.Title>
+                <Text style={{ color: theme.colors.text }}>Role</Text>
+              </DataTable.Title>
             </DataTable.Header>
 
             <DataTable.Row>
-              <DataTable.Cell>John Doe</DataTable.Cell>
-              <DataTable.Cell>john@example.com</DataTable.Cell>
-              <DataTable.Cell>Accountant</DataTable.Cell>
+              <DataTable.Cell>
+                <Text style={{ color: theme.colors.text }}>John Doe</Text>
+              </DataTable.Cell>
+              <DataTable.Cell>
+                <Text style={{ color: theme.colors.text }}>john@example.com</Text>
+              </DataTable.Cell>
+              <DataTable.Cell>
+                <Text style={{ color: theme.colors.text }}>Accountant</Text>
+              </DataTable.Cell>
             </DataTable.Row>
             <DataTable.Row>
-              <DataTable.Cell>Jane Smith</DataTable.Cell>
-              <DataTable.Cell>jane@example.com</DataTable.Cell>
-              <DataTable.Cell>Auditor</DataTable.Cell>
+              <DataTable.Cell>
+                <Text style={{ color: theme.colors.text }}>Jane Smith</Text>
+              </DataTable.Cell>
+              <DataTable.Cell>
+                <Text style={{ color: theme.colors.text }}>jane@example.com</Text>
+              </DataTable.Cell>
+              <DataTable.Cell>
+                <Text style={{ color: theme.colors.text }}>Auditor</Text>
+              </DataTable.Cell>
             </DataTable.Row>
           </DataTable>
         </View>
 
         {/* Navigation */}
-        <Button mode="contained" onPress={() => navigation.navigate('Transactions')} style={styles.button}>
+        <Button
+          mode="contained"
+          onPress={() => navigation.navigate('Transactions')}
+          style={styles.button}
+          color={theme.colors.primary} // Use theme-based primary color
+        >
           View Transactions
         </Button>
       </ScrollView>
-    </View>
+    </Layout>
   );
 }
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    flexDirection: 'row', // Sidebar and content side-by-side
-    backgroundColor: '#F4F6F6',
-  },
   container: {
     flex: 1,
     padding: 16,
