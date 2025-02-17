@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import { TextInput, Button, Card, Title, Paragraph } from 'react-native-paper';
-import Layout from '../components/Layout'; 
+import Layout from '../components/Layout'; // Import the Layout component
 
 export default function TransactionScreen() {
   const [transactions, setTransactions] = useState([]);
@@ -17,7 +17,7 @@ export default function TransactionScreen() {
 
     const newTransaction = {
       id: Date.now().toString(),
-      amount: parseFloat(amount).toFixed(2), 
+      amount: parseFloat(amount).toFixed(2), // Ensure amount is a number with 2 decimal places
       description,
     };
 
