@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { ThemeProvider } from './context/ThemeContext';
-import MainLayout from './components/MainLayout'; // Import the MainLayout component
+//import MainLayout from './components/MainLayout'; // Import the MainLayout component
 
 // Auth Screens
 import LandingScreen from './screens/LandingScreen';
