@@ -1,43 +1,42 @@
+// components/MainLayout.js
 import React, { useState } from 'react';
-import { View, StyleSheet, SafeAreaView, Dimensions } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { View, StyleSheet } from 'react-native';
 import Sidebar from './Sidebar';
-
-const screenWidth = Dimensions.get('window').width;
-const sidebarWidth = screenWidth * 0.2; // Adjust sidebar width dynamically
 
 const MainLayout = ({ children }) => {
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
-  const navigation = useNavigation(); // Ensure navigation context is accessible
-
-  const toggleSidebar = () => {
-    setSidebarExpanded(!sidebarExpanded);
-  };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
-        <Sidebar expanded={sidebarExpanded} toggleSidebar={toggleSidebar} navigation={navigation} />
-        <View style={[styles.content, sidebarExpanded && { marginLeft: sidebarWidth }]}>
-          {children}
-        </View>
+    <View style={styles.container}>
+      <Sidebar 
+        expanded={sidebarExpanded} 
+        toggleSidebar={() => setSidebarExpanded(!sidebarExpanded)} 
+      />
+      
+      <View style={[
+        styles.content, 
+        sidebarExpanded && styles.contentShifted
+      ]}>
+        {children({ toggleSidebar: () => setSidebarExpanded(!sidebarExpanded) })}
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: '#fff', // Ensure background consistency
-  },
   container: {
     flex: 1,
-    flexDirection: 'row',
+    position: 'relative',
   },
   content: {
     flex: 1,
+    width: '100%',
+  },
+  contentShifted: {
+    marginLeft: '80%',
+    width: '20%',
+    overflow: 'hidden',
   },
 });
 
-export default MainLayout;
+export default MainLayout; // Make sure this export exists

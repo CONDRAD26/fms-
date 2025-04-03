@@ -3,8 +3,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { ThemeProvider } from './context/ThemeContext';
+import MainLayout from './components/MainLayout';
 
-// Auth Screens
+// Import all your screens...
 import LandingScreen from './screens/LandingScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignUpScreen from './screens/SignUpScreen';
@@ -21,98 +22,56 @@ import BudgetReportScreen from './screens/BudgetReportScreen';
 import UsersScreen from './screens/UsersScreen';
 import SettingsScreen from './screens/SettingsScreen';
 
-import MainLayout from './components/MainLayout';
+const RootStack = createStackNavigator();
+const MainAppStack = createStackNavigator();
 
-const Stack = createStackNavigator();
+// Create a screen component wrapper
+const createScreen = (Component) => {
+  return ({ navigation }) => (
+    <MainLayout>
+      {({ toggleSidebar }) => (
+        <Component navigation={navigation} toggleSidebar={toggleSidebar} />
+      )}
+    </MainLayout>
+  );
+};
+
+const MainApp = () => (
+  <MainAppStack.Navigator 
+    initialRouteName="Home" 
+    screenOptions={{ headerShown: false }}
+  >
+    <MainAppStack.Screen name="Home" component={createScreen(HomeScreen)} />
+    <MainAppStack.Screen name="Transactions" component={createScreen(TransactionScreen)} />
+    <MainAppStack.Screen name="Budget" component={createScreen(BudgetScreen)} />
+    <MainAppStack.Screen name="Departments" component={createScreen(DepartmentScreen)} />
+    <MainAppStack.Screen name="Accounts" component={createScreen(AccountScreen)} />
+    <MainAppStack.Screen name="FinancialReport" component={createScreen(FinancialReportScreen)} />
+    <MainAppStack.Screen name="BudgetReport" component={createScreen(BudgetReportScreen)} />
+    <MainAppStack.Screen name="Users" component={createScreen(UsersScreen)} />
+    <MainAppStack.Screen name="Settings" component={createScreen(SettingsScreen)} />
+  </MainAppStack.Navigator>
+);
 
 export default function App() {
-  const [isAuthenticated] = React.useState(true); // Set to false to enable auth
+  const [isAuthenticated, setIsAuthenticated] = React.useState(true); 
 
   return (
     <ThemeProvider>
       <PaperProvider>
         <NavigationContainer>
-          {isAuthenticated ? (
-            <Stack.Navigator
-              initialRouteName="Home"
-              screenOptions={{
-                headerShown: false,
-                animationEnabled: false
-              }}
-            >
-              {/* Wrap each screen inside MainLayout */}
-              <Stack.Screen name="Home">
-                {(props) => (
-                  <MainLayout>
-                    <HomeScreen {...props} />
-                  </MainLayout>
-                )}
-              </Stack.Screen>
-              <Stack.Screen name="Transactions">
-                {(props) => (
-                  <MainLayout>
-                    <TransactionScreen {...props} />
-                  </MainLayout>
-                )}
-              </Stack.Screen>
-              <Stack.Screen name="Budget">
-                {(props) => (
-                  <MainLayout>
-                    <BudgetScreen {...props} />
-                  </MainLayout>
-                )}
-              </Stack.Screen>
-              <Stack.Screen name="Departments">
-                {(props) => (
-                  <MainLayout>
-                    <DepartmentScreen {...props} />
-                  </MainLayout>
-                )}
-              </Stack.Screen>
-              <Stack.Screen name="Accounts">
-                {(props) => (
-                  <MainLayout>
-                    <AccountScreen {...props} />
-                  </MainLayout>
-                )}
-              </Stack.Screen>
-              <Stack.Screen name="FinancialReport">
-                {(props) => (
-                  <MainLayout>
-                    <FinancialReportScreen {...props} />
-                  </MainLayout>
-                )}
-              </Stack.Screen>
-              <Stack.Screen name="BudgetReport">
-                {(props) => (
-                  <MainLayout>
-                    <BudgetReportScreen {...props} />
-                  </MainLayout>
-                )}
-              </Stack.Screen>
-              <Stack.Screen name="Users">
-                {(props) => (
-                  <MainLayout>
-                    <UsersScreen {...props} />
-                  </MainLayout>
-                )}
-              </Stack.Screen>
-              <Stack.Screen name="Settings">
-                {(props) => (
-                  <MainLayout>
-                    <SettingsScreen {...props} />
-                  </MainLayout>
-                )}
-              </Stack.Screen>
-            </Stack.Navigator>
-          ) : (
-            <Stack.Navigator initialRouteName="Landing" screenOptions={{ headerShown: false }}>
-              <Stack.Screen name="Landing" component={LandingScreen} />
-              <Stack.Screen name="Login" component={LoginScreen} />
-              <Stack.Screen name="SignUp" component={SignUpScreen} />
-              <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
-            </Stack.Navigator>
-          )}
+          <RootStack.Navigator screenOptions={{ headerShown: false }}>
+            {isAuthenticated ? (
+              <RootStack.Screen name="MainApp" component={MainApp} />
+            ) : (
+              <>
+                <RootStack.Screen name="Landing" component={LandingScreen} />
+                <RootStack.Screen name="Login" component={LoginScreen} />
+                <RootStack.Screen name="SignUp" component={SignUpScreen} />
+                <RootStack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+              </>
+            )}
+          </RootStack.Navigator>
         </NavigationContainer>
       </PaperProvider>
     </ThemeProvider>
