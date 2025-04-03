@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import { View, ScrollView, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import { Text, Card, DataTable, Button, IconButton, Avatar } from 'react-native-paper';
 import { LineChart, PieChart } from 'react-native-chart-kit';
-import Layout from '../components/MainLayout';
+import { MaterialIcons } from '@expo/vector-icons';
 import { ThemeContext } from '../context/ThemeContext';
 
-function HomeScreen({ navigation }) {
+function HomeScreen({ navigation, toggleSidebar }) {
   const { theme } = useContext(ThemeContext);
   const screenWidth = Dimensions.get('window').width;
 
@@ -29,19 +29,19 @@ function HomeScreen({ navigation }) {
   ];
 
   return (
-    <Layout navigation={navigation}>
-      <ScrollView style={[styles.container, { backgroundColor: theme.colors.background }]}>
-        {/* Header with User Info */}
-        <View style={styles.headerContainer}>
-          <View>
-            <Text style={[styles.greeting, { color: theme.colors.text }]}>Good Morning,</Text>
-            <Text style={[styles.userName, { color: theme.colors.primary }]}>Admin</Text>
-          </View>
-          <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-            <Avatar.Text size={40} label="AD" style={{ backgroundColor: theme.colors.primary }} />
-          </TouchableOpacity>
-        </View>
+    <View style={{ flex: 1 }}>
+      {/* Custom Header with Menu Button */}
+      <View style={[styles.headerContainer, { backgroundColor: theme.colors.primary }]}>
+        <TouchableOpacity onPress={toggleSidebar}>
+          <MaterialIcons name="menu" size={28} color="white" />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>Dashboard</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
+          <Avatar.Text size={32} label="AD" style={{ backgroundColor: 'white' }} />
+        </TouchableOpacity>
+      </View>
 
+      <ScrollView style={[styles.container, { backgroundColor: theme.colors.background }]}>
         {/* Quick Stats Cards */}
         <View style={styles.widgetContainer}>
           <StatCard 
@@ -241,7 +241,7 @@ function HomeScreen({ navigation }) {
           </Button>
         </View>
       </ScrollView>
-    </Layout>
+    </View>
   );
 }
 
@@ -270,20 +270,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 24,
+    padding: 16,
+    paddingTop: 50, // Adjust for status bar
   },
-  greeting: {
-    fontSize: 16,
-  },
-  userName: {
+  headerTitle: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: 'white',
   },
   widgetContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     marginBottom: 16,
+    marginTop: 16,
   },
   statCard: {
     width: '48%',
