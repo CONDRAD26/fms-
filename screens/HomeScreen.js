@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { View, ScrollView, StyleSheet, Dimensions } from 'react-native';
 import { Text, Card, DataTable, Button } from 'react-native-paper';
 import { LineChart } from 'react-native-chart-kit';
-import Layout from '../components/Layout'; 
+import Layout from '../components/MainLayout'; 
 import { ThemeContext } from '../context/ThemeContext'; 
 
 function HomeScreen({ navigation }) {

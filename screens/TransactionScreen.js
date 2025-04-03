@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { View, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { TextInput, Button, Card, Title, Paragraph, Text, IconButton, Colors } from 'react-native-paper';
-import Layout from '../components/Layout';
+import Layout from '../components/MainLayout';
 
 export default function TransactionScreen() {
   const [transactions, setTransactions] = useState([]);
