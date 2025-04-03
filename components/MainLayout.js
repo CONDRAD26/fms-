@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   contentShifted: {
-    marginLeft: '20%', // Shift content when sidebar is open
+    marginLeft: '20%', // Adjust this value based on your sidebar width
   },
 });
 
