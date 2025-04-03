@@ -1,10 +1,8 @@
-// App.js
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { ThemeProvider } from './context/ThemeContext';
-import MainLayout from './components/MainLayout';
 
 // Auth Screens
 import LandingScreen from './screens/LandingScreen';
@@ -23,6 +21,8 @@ import BudgetReportScreen from './screens/BudgetReportScreen';
 import UsersScreen from './screens/UsersScreen';
 import SettingsScreen from './screens/SettingsScreen';
 
+import MainLayout from './components/MainLayout';
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -33,25 +33,78 @@ export default function App() {
       <PaperProvider>
         <NavigationContainer>
           {isAuthenticated ? (
-            <MainLayout>
-              <Stack.Navigator 
-                initialRouteName="Home"
-                screenOptions={{ 
-                  headerShown: false,
-                  animationEnabled: false 
-                }}
-              >
-                <Stack.Screen name="Home" component={HomeScreen} />
-                <Stack.Screen name="Transactions" component={TransactionScreen} />
-                <Stack.Screen name="Budget" component={BudgetScreen} />
-                <Stack.Screen name="Departments" component={DepartmentScreen} />
-                <Stack.Screen name="Accounts" component={AccountScreen} />
-                <Stack.Screen name="FinancialReport" component={FinancialReportScreen} />
-                <Stack.Screen name="BudgetReport" component={BudgetReportScreen} />
-                <Stack.Screen name="Users" component={UsersScreen} />
-                <Stack.Screen name="Settings" component={SettingsScreen} />
-              </Stack.Navigator>
-            </MainLayout>
+            <Stack.Navigator
+              initialRouteName="Home"
+              screenOptions={{
+                headerShown: false,
+                animationEnabled: false
+              }}
+            >
+              {/* Wrap each screen inside MainLayout */}
+              <Stack.Screen name="Home">
+                {(props) => (
+                  <MainLayout>
+                    <HomeScreen {...props} />
+                  </MainLayout>
+                )}
+              </Stack.Screen>
+              <Stack.Screen name="Transactions">
+                {(props) => (
+                  <MainLayout>
+                    <TransactionScreen {...props} />
+                  </MainLayout>
+                )}
+              </Stack.Screen>
+              <Stack.Screen name="Budget">
+                {(props) => (
+                  <MainLayout>
+                    <BudgetScreen {...props} />
+                  </MainLayout>
+                )}
+              </Stack.Screen>
+              <Stack.Screen name="Departments">
+                {(props) => (
+                  <MainLayout>
+                    <DepartmentScreen {...props} />
+                  </MainLayout>
+                )}
+              </Stack.Screen>
+              <Stack.Screen name="Accounts">
+                {(props) => (
+                  <MainLayout>
+                    <AccountScreen {...props} />
+                  </MainLayout>
+                )}
+              </Stack.Screen>
+              <Stack.Screen name="FinancialReport">
+                {(props) => (
+                  <MainLayout>
+                    <FinancialReportScreen {...props} />
+                  </MainLayout>
+                )}
+              </Stack.Screen>
+              <Stack.Screen name="BudgetReport">
+                {(props) => (
+                  <MainLayout>
+                    <BudgetReportScreen {...props} />
+                  </MainLayout>
+                )}
+              </Stack.Screen>
+              <Stack.Screen name="Users">
+                {(props) => (
+                  <MainLayout>
+                    <UsersScreen {...props} />
+                  </MainLayout>
+                )}
+              </Stack.Screen>
+              <Stack.Screen name="Settings">
+                {(props) => (
+                  <MainLayout>
+                    <SettingsScreen {...props} />
+                  </MainLayout>
+                )}
+              </Stack.Screen>
+            </Stack.Navigator>
           ) : (
             <Stack.Navigator initialRouteName="Landing" screenOptions={{ headerShown: false }}>
               <Stack.Screen name="Landing" component={LandingScreen} />
